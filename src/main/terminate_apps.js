@@ -1,71 +1,70 @@
-import { dialog } from 'electron'
-import { exec } from 'child_process'
-import { app } from 'electron' // Import app module from Electron
+import { dialog, shell } from 'electron';
+import { exec } from 'child_process';
+import { app } from 'electron';
 
 export async function terminateAppProcessesWin() {
-  const psList = (await import('ps-list')).default
+  const currentAppPID = process.pid;
+  const currentAppName = app.getName();
+  console.log(`Current app process name: ${currentAppName}, PID: ${currentAppPID}`);
 
-  // Get list of all running processes
-  const processes = await psList()
+  // Wrap the PowerShell command in quotes and use -Command parameter
+  const psCommand = 'powershell.exe -Command "Get-Process | Where-Object {$_.MainWindowTitle} | Select-Object Name, Id, MainWindowTitle"';
 
-  // Log the current app process name and PID
-  const currentAppPID = process.pid // PID of the current Electron process
-  const currentAppName = app.getName() // Get the app name from Electron's app module
-  console.log(`Current app process name: ${currentAppName}, PID: ${currentAppPID}`)
+  return new Promise((resolve, reject) => {
+    exec(psCommand, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error executing PowerShell command: ${error.message}`);
+        reject(error);
+        return;
+      }
+      if (stderr) {
+        console.error(`stderr: ${stderr}`);
+        reject(new Error(stderr));
+        return;
+      }
 
-  // Find the PID of explorer.exe
-  const explorerProcess = processes.find((process) => process.name === 'explorer.exe')
+      try {
+        // Skip header lines and empty lines
+        const processesList = stdout.split('\n')
+          .slice(3) // Skip the header lines
+          .filter(line => line.trim() !== '') // Remove empty lines
+          .map(line => {
+            const [name, id, ...titleParts] = line.trim().split(/\s+/);
+            return {
+              name: name || 'Unknown',
+              pid: parseInt(id) || 0,
+              title: titleParts.join(' ') || 'No Title',
+            };
+          })
+          .filter(proc =>
+            proc.pid !== currentAppPID && // Skip current app process
+            proc.name.toLowerCase() !== 'code' && proc.name.toLowerCase() !== "taskmgr" && proc.name.toLowerCase() !== "systemsettings" && proc.name.toLowerCase() !== "textinputhost" // Skip code.exe (Visual Studio Code)
+          );
 
-  if (explorerProcess) {
-    const explorerPID = explorerProcess.pid
+        console.log('Found processes:', processesList);
 
-    // Find all child processes of explorer.exe (those whose parent PID is the explorer PID)
-    const childProcesses = processes.filter((process) => process.ppid === explorerPID)
+        // Terminate processes
+        processesList.forEach((process) => {
+          console.log(`Terminating process: ${process.name} (PID: ${process.pid}, Title: ${process.title})`);
 
-    // Log and terminate the child processes
-    if (childProcesses.length > 0) {
-      childProcesses.forEach((process) => {
-        // Skip the current app process
-        if (process.pid === currentAppPID) {
-          console.log(`Skipping current app process: ${currentAppName} (PID: ${currentAppPID})`)
-          return
-        }
+          exec(`taskkill /PID ${process.pid} /F`, (error, stdout, stderr) => {
+            if (error) {
+              console.error(`Error terminating ${process.name} (PID: ${process.pid}): ${error.message}`);
+              return;
+            }
+            if (stderr) {
+              console.error(`stderr while terminating ${process.name} (PID: ${process.pid}): ${stderr}`);
+              return;
+            }
+            console.log(`Successfully terminated ${process.name} (PID: ${process.pid})`);
+          });
+        });
 
-        // Skip vscode (code.exe) process
-        if (process.name.toLowerCase() === 'code.exe') {
-          console.log(`Skipping vscode process: ${process.name} (PID: ${process.pid})`)
-          return
-        }
-
-        console.log(`Terminating child process of explorer.exe: ${process.name} (PID: ${process.pid})`)
-
-        // Terminate each child process
-        exec(`taskkill /PID ${process.pid} /F`, (error, stdout, stderr) => {
-          if (error) {
-            console.error(
-              `Error terminating ${process.name} (PID: ${process.pid}): ${error.message}`
-            )
-
-            // If unable to terminate, ask the user to close the process manually
-            dialog.showMessageBox({
-              type: 'warning',
-              title: 'Unable to Terminate Process',
-              message: `Could not terminate the process ${process.name} (PID: ${process.pid}). Please close it manually.`,
-              buttons: ['OK']
-            })
-            return
-          }
-          if (stderr) {
-            console.error(`stderr: ${stderr}`)
-            return
-          }
-          console.log(`Successfully terminated ${process.name} (PID: ${process.pid})`)
-        })
-      })
-    } else {
-      console.log('No child processes found for explorer.exe.')
-    }
-  } else {
-    console.log('Explorer.exe process not found.')
-  }
+        resolve(processesList); // Resolve with the list of terminated processes
+      } catch (parseError) {
+        console.error('Error parsing process list:', parseError);
+        reject(parseError);
+      }
+    });
+  });
 }
