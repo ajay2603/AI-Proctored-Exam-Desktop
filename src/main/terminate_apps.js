@@ -88,28 +88,26 @@ app.whenReady().then(() => {
   ipcMain.on('on-renderer', (_, data) => {
     console.log('in term')
     console.log(data)
-    if (data.event !== 'pre-exam') {
-      return
+    if (data.event === 'pre-exam') {
+      if (terminationId) {
+        clearInterval(terminationId)
+        terminationId = null
+      }
+
+      terminationId = setInterval(() => {
+        terminateAppProcessesWin()
+          .then((_) => {})
+          .catch((err) => {
+            console.log(err)
+          })
+      }, 2000)
     }
 
-    if (terminationId) {
-      clearInterval(terminationId)
-      terminationId = null
-    }
-
-    terminationId = setInterval(() => {
-      terminateAppProcessesWin()
-        .then((_) => {})
-        .catch((err) => {
-          console.log(err)
-        })
-    }, 2000)
-  })
-
-  ipcMain.on('post-exam', () => {
-    if (terminationId) {
-      clearInterval(terminationId)
-      terminationId = null
+    if (data.event === 'post-exam') {
+      if (terminationId) {
+        clearInterval(terminationId)
+        terminationId = null
+      }
     }
   })
 })

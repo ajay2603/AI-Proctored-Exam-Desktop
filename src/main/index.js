@@ -127,6 +127,10 @@ ipcMain.on('on-renderer', (_, data) => {
   if (data.event === 'post-exam') {
     mainWindow.setKiosk(false)
   }
+
+  if (data.evet === 'quit-app') {
+    app.quit()
+  }
 })
 
 // In this file you can include the rest of your app"s specific main process
