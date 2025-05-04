@@ -1,13 +1,17 @@
 from __future__ import division
 import os
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import subprocess
 >>>>>>> 6ad55d2 (.)
+=======
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
 import cv2
 import dlib
 from .eye import Eye
 from .calibration import Calibration
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 import json
@@ -47,6 +51,8 @@ def getTresholds():
         print("No data loaded")
         return 0.78, 0.425
 >>>>>>> 6ad55d2 (.)
+=======
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
 
 
 class GazeTracking(object):
@@ -57,18 +63,24 @@ class GazeTracking(object):
     """
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 6ad55d2 (.)
+=======
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
     def __init__(self):
         self.frame = None
         self.eye_left = None
         self.eye_right = None
         self.calibration = Calibration()
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         self.leftRatio, self.rightRatio = getTresholds();
 >>>>>>> 6ad55d2 (.)
+=======
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
 
         # _face_detector is used to detect faces
         self._face_detector = dlib.get_frontal_face_detector()
@@ -79,9 +91,12 @@ class GazeTracking(object):
         self._predictor = dlib.shape_predictor(model_path)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 6ad55d2 (.)
+=======
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
     @property
     def pupils_located(self):
         """Check that the pupils have been located"""
@@ -155,14 +170,19 @@ class GazeTracking(object):
         """Returns true if the user is looking to the right"""
         if self.pupils_located:
 <<<<<<< HEAD
+<<<<<<< HEAD
             return self.horizontal_ratio() <= 0.35
 =======
             return self.horizontal_ratio() <= self.rightRatio
 >>>>>>> 6ad55d2 (.)
+=======
+            return self.horizontal_ratio() <= 0.35
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
 
     def is_left(self):
         """Returns true if the user is looking to the left"""
         if self.pupils_located:
+<<<<<<< HEAD
 <<<<<<< HEAD
             return self.horizontal_ratio() >= 0.78
 =======
@@ -173,6 +193,9 @@ class GazeTracking(object):
         if self.pupils_located:
             return self.vertical_ratio() <= 0.64
 >>>>>>> 6ad55d2 (.)
+=======
+            return self.horizontal_ratio() >= 0.78
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
 
     def is_center(self):
         """Returns true if the user is looking to the center"""

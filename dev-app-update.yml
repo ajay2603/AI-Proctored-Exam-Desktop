@@ -1,7 +1,11 @@
 provider: generic
 url: https://example.com/auto-updates
 <<<<<<< HEAD
+<<<<<<< HEAD
 updaterCacheDirName: final-desktop-updater
 =======
 updaterCacheDirName: new-final-updater
 >>>>>>> 6ad55d2 (.)
+=======
+updaterCacheDirName: final-desktop-updater
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376

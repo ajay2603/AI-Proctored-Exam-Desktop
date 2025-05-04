@@ -21,10 +21,14 @@ const startServer = () => {
   console.log('Server Script:', serverScript)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   localServer = spawn(python, [serverScript], { shell: true, cwd: serverSRC })
 =======
   localServer = spawn(python, [serverScript], { cwd: serverSRC })
 >>>>>>> 6ad55d2 (.)
+=======
+  localServer = spawn(python, [serverScript], { shell: true, cwd: serverSRC })
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
 
   localServer.stdout.on('data', (data) => {
     serverRunning = true

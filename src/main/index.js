@@ -129,10 +129,14 @@ ipcMain.on('on-renderer', (_, data) => {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   if (data.evet === 'quit-app') {
 =======
   if (data.event === 'quit-app') {
 >>>>>>> 6ad55d2 (.)
+=======
+  if (data.evet === 'quit-app') {
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
     app.quit()
   }
 })

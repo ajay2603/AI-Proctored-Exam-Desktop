@@ -3,7 +3,10 @@ dist
 out
 .DS_Store
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 .eslintcache
 >>>>>>> 6ad55d2 (.)
+=======
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
 *.log*

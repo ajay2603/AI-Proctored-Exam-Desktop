@@ -1,8 +1,11 @@
 # app.py
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 from math import atan2, degrees
 >>>>>>> 6ad55d2 (.)
+=======
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
@@ -17,6 +20,7 @@ import time
 import requests
 from io import BytesIO
 from PIL import Image
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 import dlib
@@ -80,6 +84,8 @@ def get_face_angles(shape, size):
     return yaw, pitch
 
 >>>>>>> 6ad55d2 (.)
+=======
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
 
 app = Flask(__name__)  # Allow Vite dev server
 CORS(app,resources={r"/*":{"origins":"*"}})
@@ -120,10 +126,14 @@ def gaze_tracking(frame, gaze):
     cv2.putText(frame, text, (90, 60), cv2.FONT_HERSHEY_DUPLEX, 1.6, (147, 58, 31), 2)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
     left_pupil = gaze.pupil_left_coords()
     right_pupil = gaze.pupil_right_coords()
     cv2.putText(frame, "Left pupil:  " + str(left_pupil), (90, 130), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
     cv2.putText(frame, "Right pupil: " + str(right_pupil), (90, 165), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
+<<<<<<< HEAD
 =======
     h_ratio = gaze.horizontal_ratio()
     v_ratio = gaze.vertical_ratio()
@@ -135,6 +145,8 @@ def gaze_tracking(frame, gaze):
     cv2.putText(frame, v_ratio_text, (90, 165), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
 
 >>>>>>> 6ad55d2 (.)
+=======
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
 
     return frame, (text != ""), isCheating, text
 
@@ -176,14 +188,18 @@ def process_webcam():
         result['isGazeTracked'] = is_gaze_tracked
         result['gazeResult'] = gaze_result
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 6ad55d2 (.)
+=======
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
         if is_cheating:
             result['gazeCheating'] = True
         else:
             result['gazeCheating'] = False
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
         faces = detector(gray)
@@ -211,6 +227,8 @@ def process_webcam():
                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
 
 >>>>>>> 6ad55d2 (.)
+=======
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
         time_diff = datetime.datetime.now() - last_time
         if time_diff.total_seconds() >= 5:
             match_text, different_person = compare_faces(frame)

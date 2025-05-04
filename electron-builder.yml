@@ -1,9 +1,13 @@
 appId: com.electron.app
 <<<<<<< HEAD
+<<<<<<< HEAD
 productName: final-desktop
 =======
 productName: new-final
 >>>>>>> 6ad55d2 (.)
+=======
+productName: final-desktop
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
 directories:
   buildResources: build
 files:
@@ -11,19 +15,27 @@ files:
   - '!src/*'
   - '!electron.vite.config.{js,ts,mjs,cjs}'
 <<<<<<< HEAD
+<<<<<<< HEAD
   - '!{.eslintignore,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
 =======
   - '!{.eslintcache,eslint.config.mjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
 >>>>>>> 6ad55d2 (.)
+=======
+  - '!{.eslintignore,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
   - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
 asarUnpack:
   - resources/**
 win:
 <<<<<<< HEAD
+<<<<<<< HEAD
   executableName: final-desktop
 =======
   executableName: new-final
 >>>>>>> 6ad55d2 (.)
+=======
+  executableName: final-desktop
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

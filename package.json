@@ -1,15 +1,22 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
   "name": "desktop",
 =======
   "name": "new-final",
 >>>>>>> 6ad55d2 (.)
+=======
+  "name": "desktop",
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
   "version": "1.0.0",
   "description": "A minimal Electron application with JavaScript",
   "main": "./out/main/index.js",
   "author": "example.com",
   "homepage": "https://electron-vite.org",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
   "build": {
     "extraResources": [
       {
@@ -24,11 +31,14 @@
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+<<<<<<< HEAD
 =======
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --cache .",
 >>>>>>> 6ad55d2 (.)
+=======
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
     "start": "electron-vite preview",
     "dev": "electron-vite dev",
     "build": "electron-vite build",
@@ -41,6 +51,9 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
     "@electron-toolkit/utils": "^3.0.0",
     "child_process": "^1.0.2",
     "electron-updater": "^6.1.7"
@@ -54,6 +67,7 @@
     "eslint": "^8.57.0",
     "prettier": "^3.3.2",
     "vite": "^5.3.1"
+<<<<<<< HEAD
 =======
     "@electron-toolkit/utils": "^4.0.0",
     "electron-updater": "^6.3.9"
@@ -68,5 +82,7 @@
     "prettier": "^3.5.3",
     "vite": "^6.2.6"
 >>>>>>> 6ad55d2 (.)
+=======
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
   }
 }

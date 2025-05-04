@@ -26,10 +26,13 @@ while True:
     elif gaze.is_left():
         text = "Looking left"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     elif gaze.is_top():
         text = "Looking top"
 >>>>>>> 6ad55d2 (.)
+=======
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
     elif gaze.is_center():
         text = "Looking center"
 
@@ -40,11 +43,15 @@ while True:
     cv2.putText(frame, "Left pupil:  " + str(left_pupil), (90, 130), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
     cv2.putText(frame, "Right pupil: " + str(right_pupil), (90, 165), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     cv2.putText(frame, "Vertical Ratio: " + str(gaze.vertical_ratio()), (90, 200), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
     cv2.putText(frame, "Horizontal Ratio: " + str(gaze.horizontal_ratio()), (90, 235), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
 >>>>>>> 6ad55d2 (.)
+=======
+
+>>>>>>> 9e4669a0c9a0d75793787f6356d60ce7bb180376
     cv2.imshow("Demo", frame)
 
     if cv2.waitKey(1) == 27:
