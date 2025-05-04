@@ -1,0 +1,112 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Webcam Monitoring</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        #videoFeed {
+            max-width: 100%;
+            margin: 20px 0;
+        }
+        .controls {
+            margin: 20px 0;
+        }
+        .status {
+            margin: 20px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .status.cheating {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        .status.normal {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        #startButton {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        #stopButton {
+            background-color: #f44336;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Webcam Monitoring System</h1>
+        
+        <div class="controls">
+            <button id="startButton">Start Monitoring</button>
+            <button id="stopButton">Stop Monitoring</button>
+        </div>
+
+        <img id="videoFeed" src="" alt="Video feed will appear here">
+        
+        <div id="monitoringStatus" class="status normal">
+            Monitoring Status: Inactive
+        </div>
+
+        <div id="detectionResults">
+            <p>Face Count: <span id="faceCount">0</span></p>
+            <p>Gaze Direction: <span id="gazeResult">Not detected</span></p>
+            <p>Person Verification: <span id="personVerification">Not verified</span></p>
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+        const videoFeed = document.getElementById('videoFeed');
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+        const monitoringStatus = document.getElementById('monitoringStatus');
+        const faceCount = document.getElementById('faceCount');
+        const gazeResult = document.getElementById('gazeResult');
+        const personVerification = document.getElementById('personVerification');
+
+        startButton.addEventListener('click', () => {
+            socket.emit('start_monitoring'); 
+        });
+
+        stopButton.addEventListener('click', () => {
+            socket.emit('stop_monitoring');
+        });
+
+        socket.on('monitoring_status', (data) => {
+            if (data.status === 'started') {
+                monitoringStatus.textContent = 'Monitoring Status: Active';
+                monitoringStatus.className = 'status normal';
+            } else {
+                monitoringStatus.textContent = 'Monitoring Status: Inactive';
+                monitoringStatus.className = 'status normal';
+                videoFeed.src = '';
+            }
+        });
+
+        socket.on('monitoring_result_frame', (data) => {
+            // Update video feed
+            console.log("getted")
+            videoFeed.src = `data:image/jpeg;base64,${data}`;
+
+            // Update detection result
+        });
+    </script>
+</body>
+</html>
